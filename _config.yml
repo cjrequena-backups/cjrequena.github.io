@@ -1,0 +1,27 @@
+# Site settings
+title: cjrequena
+email: carlosjose.requena@gmail.com
+description:
+#  Rob Harrop, CTO @ Skipjaq.
+#  Writing about coding, maths, distributed systems, performance
+#  optimisation and machine learning
+  Some description
+url: "http://cjrequena.github.io"
+date_format: "%b %-d, %Y"
+enable_mathjax: true
+exclude: ["*.Rmd"]
+
+# Social settings
+show_social_icons: true
+twitter_username: cjrequena
+github_username:  cjrequena
+#disqus_shortname: cjrequena
+#google_analytics: UA-74112933-1
+
+
+# Build settings
+markdown: kramdown
+paginate: 5
+gems:
+  - jekyll-paginate
+  - jekyll-feed
