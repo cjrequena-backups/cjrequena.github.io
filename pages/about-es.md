@@ -1,8 +1,9 @@
 ---
 layout: page
-title: About
-permalink: /about/
+title: Acerca
 tags: about
+ref: about
+lang: es
 ---
 
 <!--CTO @ [Skipjaq](http://www.skipjaq.com). We optimise your applications using-->
