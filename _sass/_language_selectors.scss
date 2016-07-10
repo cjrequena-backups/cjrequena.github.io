@@ -1,0 +1,25 @@
+.language-selectors-left, .language-selectors-right {
+  text-align: center;
+  float: none;
+}
+
+.language-selectors {
+  font-size: 1.25rem;
+  padding: 0.5em 0 0 0;
+  width: 100%;
+}
+
+.language-selectors a.fa {
+  cursor: pointer;
+  opacity: 0.8;
+  padding: 0.2em;
+}
+
+.language-selectors a.fa:hover {
+  opacity: 1;
+}
+
+.language-selectors iframe[title=Flattr] {
+  position: relative;
+  top: 0.1em;
+}
