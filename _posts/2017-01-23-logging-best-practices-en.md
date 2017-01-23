@@ -16,14 +16,14 @@ Logging subsystem provides facilities for capturing, recording and reporting eve
 In order to provide a 'single system' experience, all software components should follow same basic rules for interfacing with the logging system. While it is not practical to force these rules on the various third parties, they should to be followed by all newly-developed components.
 
 ## **Contents**
-1. [Why we need logging in Java?](#markdown-header-why-we-need-logging-in-java)
-1. [How logging in Java affects performance?](#markdown-header-how-logging-in-java-affects-performance)
-1. [Message levels](#markdown-header-message-levels)
-1. [Logger instances](#markdown-header-logger-instances)
-1. [Use parameterized logging](#markdown-header-use-parameterized-logging)
-1. [Provide useful event context](#markdown-header-provide-useful-event-context)
-1. [What should you log](#markdown-header-what-should-you-log)
-1. [Tune your pattern](#markdown-header-tune-your-pattern)
+1. [Why we need logging in Java?](#why-we-need-logging-in-java)
+1. [How logging in Java affects performance?](#how-logging-in-java-affects-performance)
+1. [Message levels](#message-levels)
+1. [Logger instances](#logger-instances)
+1. [Use parameterized logging](#use-parameterized-logging)
+1. [Provide useful event context](#provide-useful-event-context)
+1. [What should you log](#what-should-you-log)
+1. [Tune your pattern](#tune-your-pattern)
 1. [Log method arguments and return values](#log-method-arguments-and-return-values)
 
 ## **Why we need logging in Java?**
