@@ -24,7 +24,7 @@ In order to provide a 'single system' experience, all software components should
 1. [Provide useful event context](#markdown-header-provide-useful-event-context)
 1. [What should you log](#markdown-header-what-should-you-log)
 1. [Tune your pattern](#markdown-header-tune-your-pattern)
-1. [Log method arguments and return values](#markdown-header-log-method-arguments-and-return-values)
+1. [Log method arguments and return values](#log-method-arguments-and-return-values)
 
 ## **Why we need logging in Java?**
 [Go to Contents Table](#contents)
