@@ -60,4 +60,4 @@ In order to provide a 'single system' experience, all software components should
 [Go to Contents Table](#markdown-header-contents)
 
 ## **Logs easy to read, easy to parse**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
