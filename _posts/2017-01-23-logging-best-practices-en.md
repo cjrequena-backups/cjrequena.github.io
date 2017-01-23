@@ -27,37 +27,37 @@ In order to provide a 'single system' experience, all software components should
 1. [Log method arguments and return values](#markdown-header-log-method-arguments-and-return-values)
 
 ## **Why we need logging in Java?**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
 
 ## **How logging in Java affects performance?**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
 
 ## **Message levels**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
 
 ## **Logger instances**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
 
 ## **Use parameterized logging**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
 
 ## **Provide useful event context**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
 
 ## **What should you log?**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
 
 ## **Tune your pattern**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
 
 ## **Log method arguments and return values**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
 
 ## **Watch out for external systems**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
 
 ## **Log exceptions properly**
-[Go to Contents Table](#markdown-header-contents)
+[Go to Contents Table](#contents)
 
 ## **Logs easy to read, easy to parse**
 [Go to Contents Table](#contents)
