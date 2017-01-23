@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Logging Best Practices for Java"
+date: 2017-01-23 06:39:00 +6390
+categories: logging
+lang: en
+ref: logging-best-practices-for-java
+---
+
 ## **Summary** ##
 This reference document shows the logging best practice for java
 
