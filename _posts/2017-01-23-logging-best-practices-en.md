@@ -22,7 +22,7 @@ In order to provide a 'single system' experience, all software components should
 1. [Logger instances](#logger-instances)
 1. [Use parameterized logging](#use-parameterized-logging)
 1. [Provide useful event context](#provide-useful-event-context)
-1. [What should you log](#what-should-you-log?)
+1. [What should you log?](#what-should-you-log)
 1. [Tune your pattern](#tune-your-pattern)
 1. [Log method arguments and return values](#log-method-arguments-and-return-values)
 
