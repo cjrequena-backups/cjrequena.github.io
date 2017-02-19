@@ -54,15 +54,12 @@ HTTP verbs are POST, GET, PUT, DELETE
 | /services     | create new   | get a collection list | bulk, update                            | return error                                             | delete all   |
 | /services/100 | return error | get by Id             | if exists then update else return error | if exists then update the fields given else return error | delete by id |
 
-[Go to Contents Table](#contents)
 
 ## **Use plural names and concrete names**
 Given that the first thing most people probably do with a RESTful API is a GET, we think it reads more easily and is 
 more intuitive to use plural nouns. But above all, avoid a mixed model in which you use singular for some resources, 
 plural for others. Being consistent allows developers to predict and guess the method calls as they learn to work with 
 your API.
-
-**Example:**
 
 | RESOURCE             |
 |----------------------|
@@ -72,8 +69,6 @@ your API.
 | /deals               |
 | /bookings            |
 
-
-[Go to Contents Table](#contents)
 
 ## **Simplify associations**
 Resources almost always have relationships to other resources. What's a simple way to express these relationships in a 
@@ -86,15 +81,11 @@ food, and so on. It's not uncommon to see people string these together making a 
 **_Once you have the primary key for one level, you usually don't need to include the levels above because you've already 
 got your specific object._**
 
-[Go to Contents Table](#contents)
-
 ## **Sweep complexity behind the ?**
 
 Make it simple for developers to use the base URL by putting optional states and attributes behind the HTTP question mark.
 
 For example to get all red dogs running in the park: **_GET /dogs?color=red&state=running&location=park_**
-
-[Go to Contents Table](#contents)
 
 ## **Handling errors**
 Error handling it is a very important piece of the puzzle for any software developer, and especially for API designers.
@@ -121,8 +112,6 @@ Use HTTP status codes and try to map them cleanly to relevant standard-based cod
 * The error code in the payload
 * The link in order to give a more deep information about the error in the payload
 
-**Example**
-
 ```json
 HTTP Status Code: 401
 {
@@ -133,8 +122,6 @@ HTTP Status Code: 401
     "moreInfo": "http://www.myawesomeapi.com/docs/errors/20003"
 }
 ```
-
-[Go to Contents Table](#contents)
 
 ## **Versioning**
 Versioning is one of the most important considerations when designing your Web API.
@@ -160,8 +147,6 @@ Accept: application/vnd.myapi.v2 + json
 **_Using headers is more correct for many reasons: it leverages existing HTTP standards, it’s intellectually consistent 
 with Fielding’s vision, it solves some hard real-world problems related to inter-dependent APIs, and more._**
 
-**_Example_**
-
 ```xml
 http://company.com/api/customer/123
 ===>
@@ -176,8 +161,6 @@ Content-Type: application/vnd.company.myapp-v3+xml
 </customer>
 ```
 
-[Go to Contents Table](#contents)
-
 ## **Pagination**
 * Make it easy for developers to paginate objects in a database
 * It’s almost always a bad idea to return every resource in a database.
@@ -186,23 +169,19 @@ Content-Type: application/vnd.company.myapp-v3+xml
 * We also suggest including metadata with each response that is paginated that indicated to the developer the total number
 of records available.
 
-[Go to Contents Table](#contents)
-
 ## **Partial response**
 Partial response allows you to give developers just the information they need.
 Take for example a request for a tweet on the Twitter API. You’ll get much more than a typical twitter app often needs 
 including the name of person, the text of the tweet, a timestamp, how often the message was re-tweeted, and a lot of 
 metadata.
 
-See google approach https://developers.google.com/+/web/api/rest/
+See google approach [Google developers](https://developers.google.com/+/web/api/rest/)
 
 By default, the server sends back the full representation of a resource after processing requests. For better performance,
 you can ask the server to send only the fields you really need and get a partial response instead.
 
 To request a partial response, use the fields request parameter to specify the fields you want returned. 
 You can use this parameter with any request that returns a response body.
-
-**Example**
 
 The following example shows the use of the fields parameter with the Google+ API.
 
@@ -279,31 +258,90 @@ as in the example below:
 |---------------|---------------------------------------------------------------------------------------|
 | items(id,url) | Returns only the values of the id and url fields for each element in the items array. |
 
+### **Handling partial responses**
 
-[Go to Contents Table](#contents)
+After a server processes a valid request that includes the fields query parameter, it sends back an HTTP 200 OK status 
+code, along with the requested data. If the fields query parameter has an error or is otherwise invalid, the server 
+returns an HTTP 400 Bad Request status code, along with an error message telling the user what was wrong with their 
+fields selection, for example, "Invalid field selection a/b".
 
-## **Handling partial responses**
-
-[Go to Contents Table](#contents)
+**_Note: Whenever possible, use maxResults judiciously to reduce the results of each query to a manageable size. Otherwise, the performance gains possible with partial response might not be realized._**
 
 ## **Responses that don’t involve resources**
 
+API calls that send a response that’s not a resource per se are not uncommon depending on the domain. We’ve seen it in 
+financial services, Telco, and the automotive domain to some extent.
+
+Actions like the following are your clue that you might not be dealing with a “resource” response.
+
+* Calculate
+* Translate
+* Convert
+
+For example, you want to make a simple algorithmic calculation like how much tax someone should pay, or do a natural language translation (one language in request; another in response), or convert one currency to another. None involve resources returned from a database.
+
 ### **Use verbs not nouns**
 
-[Go to Contents Table](#contents)
+For example, an API to convert 100 euros to Chinese Yen: **_/convert?from=EUR&to=CNY&amount=100_**
+
+Make it clear in your API documentation that these “non-resource” scenarios are different.
+
+Simply separate out a section of documentation that makes it clear that you use verbs in cases like this – where some 
+action is taken to generate or calculate the response, rather than returning a resource directly.
 
 ## **Supporting multiple formats**
 
-[Go to Contents Table](#contents)
+We recommend that you support more than one format - that you push things out in one format and accept as many formats 
+as necessary.
+
+```html
+GET /customer/123 HTTP/1.1
+Accept: application/vnd.company.myapp.customer-v3+json
+ 
+GET /customer/123 HTTP/1.1
+Accept: application/vnd.company.myapp.customer-v3+xml
+```
+
+**_JSON is winning out as the default format. JSON is the closest thing we have to universal language. Even if the back 
+end is built in Ruby on Rails, PHP, Java, Python etc., most projects probably touch JavaScript for the front-end. 
+It also has the advantage of being terse - less verbose than XML._**
 
 ## **Attribute names**
 
-[Go to Contents Table](#contents)
+You have an object with data attributes on it. How should you name the attributes?
+
+Our approach is going to be CamelCase attributes
+
+**_For example:_**
+
+createdAt: 1320296464
+
+serviceId: 100
+
+**_Recommendations_**
+
+* Use JSON as default
+* Follow JavaScript conventions for naming attributes
+* Use medial capitalization (aka CamelCase)
 
 ## **Tips for search**
 
-[Go to Contents Table](#contents)
+While a simple search could be modeled as a resourceful API (for example, dogs/?q=red), a more complex search across 
+multiple resources requires a different design.
+
+This will sound familiar if you’ve read the topic about using verbs not nouns when results don’t return a resource from 
+the database - rather the result is some action or calculation.
+
+If you want to do a global search across resources, we suggest you follow the Google model:
+
+**Global search**
+
+**_/search?q=fluffy+fur_**
 
 ## **Resources**
+
+* [Apigee Web Api Design](https://apigee.com/about/resources/ebooks/web-api-design)
+* [REST API Design Rulebook](http://shop.oreilly.com/product/0636920021575.do)
+* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
 
 [Go to Contents Table](#contents)
