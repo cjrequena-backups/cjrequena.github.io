@@ -3,12 +3,24 @@
     <div class="language-selectors-right">
         {% assign posts=site.posts | where:"ref", page.ref | sort: 'lang' %}
         {% for post in posts %}
-            <a class="fa" href="{{ post.url }}" >{{ post.lang }}</a>
+            <a class="fa" href="{{ post.url }}" >
+                {% if page.lang == 'es' %}
+                <img src=" /assets/images/flags/es.svg" width="20px" height="15px"/>
+                {% else %}
+                <img src=" /assets/images/flags/us.svg" width="20px" height="15px"/>
+                {% endif %}
+            </a>
         {% endfor %}
 
         {% assign pages=site.pages | where:"ref", page.ref | sort: 'lang' %}
         {% for page in pages %}
-            <a class="fa" href="{{ page.url }}" >{{ page.lang }}</a>
+            <a class="fa" href="{{ page.url }}" >
+                {% if page.lang == 'es' %}
+                    <img src=" /assets/images/flags/es.svg" width="20px" height="15px"/>
+                {% else %}
+                    <img src=" /assets/images/flags/us.svg" width="20px" height="15px"/>
+                {% endif %}
+            </a>
         {% endfor %}
     </div>
     <div class="right">
