@@ -6,6 +6,12 @@ gen/
 target/
 .sonar/
 
+.sass-cache/
+_site/
+.Rhistory
+node_modules/
+assets/figures/drafts/
+
 ###############
 # Java class files
 ###############
