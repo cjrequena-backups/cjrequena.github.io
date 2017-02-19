@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Contact &#8211; cjrequena blog</title>
+    <title>Logging Best Practices for Java &#8211; cjrequena blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Carlos Requena, Software Architect @cjrequena. Writing about coding, microservices, distributed systems, performance optimisation and software architeture.
 ">
     <meta name="robots" content="all">
     <meta name="author" content="">
-    
-    <link rel="canonical" href="http://cjrequena.github.io/pages/contact-en.html">
+    <meta name="keywords" content="logging">
+    <link rel="canonical" href="http://cjrequena.github.io/logging/2017/01/23/logging-best-practices-en.html">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for cjrequena blog" href="/feed.xml" />
 
     <!-- Custom CSS -->
@@ -39,10 +39,10 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Contact">
+    <meta property="og:title" content="Logging Best Practices for Java">
     <meta property="og:description" content="Carlos Requena, Software Architect @cjrequena. Writing about coding, microservices, distributed systems, performance optimisation and software architeture.
 ">
-    <meta property="og:url" content="http://cjrequena.github.io/pages/contact-en.html">
+    <meta property="og:url" content="http://cjrequena.github.io/logging/2017/01/23/logging-best-practices-en.html">
     <meta property="og:site_name" content="cjrequena blog">
 
     <!-- Twitter Card -->
@@ -50,10 +50,10 @@
     
         <meta name="twitter:site" content="@cjrequena" />
     
-    <meta name="twitter:title" content="Contact" />
+    <meta name="twitter:title" content="Logging Best Practices for Java" />
     <meta name="twitter:description" content="Carlos Requena, Software Architect @cjrequena. Writing about coding, microservices, distributed systems, performance optimisation and software architeture.
 " />
-    <meta name="twitter:url" content="http://cjrequena.github.io/pages/contact-en.html" />
+    <meta name="twitter:url" content="http://cjrequena.github.io/logging/2017/01/23/logging-best-practices-en.html" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -96,12 +96,10 @@
     <div class="language-selectors-right">
         
         
+            <a class="fa" href="/logging/2017/01/23/logging-best-practices-en.html" >en</a>
+        
 
         
-        
-            <a class="fa" href="/pages/contact-en.html" >en</a>
-        
-            <a class="fa" href="/pages/contact-es.html" >es</a>
         
     </div>
     <div class="right">
@@ -180,22 +178,103 @@
 
     <div class="post p2 p-responsive wrap" role="main">
       <div class="measure">
-        <div class="post">
-  <header class="post-header">
-    <h1 class="h2">Contact</h1>
-  </header>
-  <article class="post-content">
-  <!--CTO @ [Skipjaq](http://www.skipjaq.com). We optimise your applications using-->
-<!--fancy machine learning cleverness. -->
-
-<!--In a past life, I was co-founder of [SpringSource](https://spring.io/) which was-->
-<!--acquired by [VMware](https://www.vmware.com). After SpringSource I spent some-->
-<!--time working in consumer finance as co-founder and CTO of [Bamboo-->
-<!--Loans](https://www.bambooloans.com).-->
+        
 
 
-  </article>
+<div class="post-header mb2">
+  <h1>Logging Best Practices for Java</h1>
+  <span class="post-meta">Jan 23, 2017</span><br>
+  
+  <span class="post-meta small">
+  
+    1 minute read
+  
+  </span>
 </div>
+
+<article class="post-content">
+  <h2 id="summary"><strong>Summary</strong></h2>
+<p>This reference document shows the logging best practice for java</p>
+
+<h2 id="description"><strong>Description</strong></h2>
+<p>Logging subsystem provides facilities for capturing, recording and reporting events which occur within the OpenDaylight system. These events are the primary means of system diagnostics and troubleshooting, serving a wide audience including automated monitoring systems, operators, administrators, support personnel and development engineers.</p>
+
+<p>In order to provide a ‘single system’ experience, all software components should follow same basic rules for interfacing with the logging system. While it is not practical to force these rules on the various third parties, they should to be followed by all newly-developed components.</p>
+
+<h2 id="contents"><strong>Contents</strong></h2>
+<ol>
+  <li><a href="#why-we-need-logging-in-java">Why we need logging in Java?</a></li>
+  <li><a href="#how-logging-in-java-affects-performance">How logging in Java affects performance?</a></li>
+  <li><a href="#message-levels">Message levels</a></li>
+  <li><a href="#logger-instances">Logger instances</a></li>
+  <li><a href="#use-parameterized-logging">Use parameterized logging</a></li>
+  <li><a href="#provide-useful-event-context">Provide useful event context</a></li>
+  <li><a href="#what-should-you-log">What should you log?</a></li>
+  <li><a href="#tune-your-pattern">Tune your pattern</a></li>
+  <li><a href="#log-method-arguments-and-return-values">Log method arguments and return values</a></li>
+</ol>
+
+<h2 id="why-we-need-logging-in-java"><strong>Why we need logging in Java?</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+<h2 id="how-logging-in-java-affects-performance"><strong>How logging in Java affects performance?</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+<h2 id="message-levels"><strong>Message levels</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+<h2 id="logger-instances"><strong>Logger instances</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+<h2 id="use-parameterized-logging"><strong>Use parameterized logging</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+<h2 id="provide-useful-event-context"><strong>Provide useful event context</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+<h2 id="what-should-you-log"><strong>What should you log?</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+<h2 id="tune-your-pattern"><strong>Tune your pattern</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+<h2 id="log-method-arguments-and-return-values"><strong>Log method arguments and return values</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+<h2 id="watch-out-for-external-systems"><strong>Watch out for external systems</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+<h2 id="log-exceptions-properly"><strong>Log exceptions properly</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+<h2 id="logs-easy-to-read-easy-to-parse"><strong>Logs easy to read, easy to parse</strong></h2>
+<p><a href="#contents">Go to Contents Table</a></p>
+
+</article>
+
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname  = 'cjrequena-blog';
+    var disqus_identifier = '/logging/2017/01/23/logging-best-practices-en';
+    var disqus_title      = 'Logging Best Practices for Java';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
 
       </div>
     </div>

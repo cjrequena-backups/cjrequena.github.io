@@ -1,4 +1,483 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.1.2">Jekyll</generator><link href="http://cjrequena.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://cjrequena.github.io/" rel="alternate" type="text/html" /><updated>2016-09-20T15:41:07+02:00</updated><id>http://cjrequena.github.io/</id><title>cjrequena</title><subtitle>Some description</subtitle><entry><title>Arquitectura Orientada a Microservicios</title><link href="http://cjrequena.github.io/micro-services/2016/09/20/micro-services-architecture-es.html" rel="alternate" type="text/html" title="Arquitectura Orientada a Microservicios" /><published>2016-09-20T08:39:00+02:00</published><updated>2016-09-20T08:39:00+02:00</updated><id>http://cjrequena.github.io/micro-services/2016/09/20/micro-services-architecture-es</id><content type="html" xml:base="http://cjrequena.github.io/micro-services/2016/09/20/micro-services-architecture-es.html">&lt;p&gt;La arquitectura orientada a microservicios, es un método particular de
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.1.2">Jekyll</generator><link href="http://cjrequena.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://cjrequena.github.io/" rel="alternate" type="text/html" /><updated>2017-02-19T14:50:16+01:00</updated><id>http://cjrequena.github.io/</id><title>cjrequena blog</title><subtitle>Carlos Requena, Software Architect @cjrequena. Writing about coding, microservices, distributed systems, performance optimisation and software architeture.
+</subtitle><entry><title>API Design Best Practices</title><link href="http://cjrequena.github.io/api/2017/02/19/api-design-best-practices-en.html" rel="alternate" type="text/html" title="API Design Best Practices" /><published>2017-02-19T07:39:00+01:00</published><updated>2017-02-19T07:39:00+01:00</updated><id>http://cjrequena.github.io/api/2017/02/19/api-design-best-practices-en</id><content type="html" xml:base="http://cjrequena.github.io/api/2017/02/19/api-design-best-practices-en.html">&lt;h2 id=&quot;summary&quot;&gt;&lt;strong&gt;Summary&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;The objective of this reference document is to define the best practices and frameworks for developing APIs.&lt;/p&gt;
+
+&lt;p&gt;This is a development guide that contains rules and standards to follow in the building of APIs following the best 
+practices of design and continuous improvement.&lt;/p&gt;
+
+&lt;h2 id=&quot;overview&quot;&gt;&lt;strong&gt;Overview&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;The API’s job is to make the developer as successful as possible.&lt;/p&gt;
+
+&lt;p&gt;The orientation for APIs is to think about design choices from the application developer’s point of view.&lt;/p&gt;
+
+&lt;p&gt;The primary design principle when crafting your API should be to maximize developer productivity and success.&lt;/p&gt;
+
+&lt;p&gt;A right design communicates how something will be used. The question becomes - what is the design with optimal benefit 
+for the app developer?&lt;/p&gt;
+
+&lt;p&gt;The developer point of view is the guiding principle for all the specific tips and best practices we’ve compiled.&lt;/p&gt;
+
+&lt;h2 id=&quot;contents&quot;&gt;&lt;strong&gt;Contents&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#use-nouns-in-order-to-name-a-resource&quot;&gt;Use nouns in order to name a resource&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#use-plural-names-and-concrete-names&quot;&gt;Use plural names and concrete names&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#simplify-associations&quot;&gt;Simplify associations&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#sweep-complexity-behind-the-?&quot;&gt;Sweep complexity behind the ?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#use-parameterized-logging&quot;&gt;Handling errors&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#provide-useful-event-context&quot;&gt;Versioning&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-should-you-log&quot;&gt;Pagination&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tune-your-pattern&quot;&gt;Partial response&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#log-method-arguments-and-return-values&quot;&gt;Fields parameter syntax summary &lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;use-nouns-in-order-to-name-a-resource&quot;&gt;&lt;strong&gt;Use nouns in order to name a resource&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;The number one principle in pragmatic RESTful design is: keep simple things simple.&lt;/p&gt;
+
+&lt;p&gt;Keep the base URL simple and intuitive the base URL is the most important design affordance of your API. A simple and intuitive base URL design makes using your API easy.&lt;/p&gt;
+
+&lt;p&gt;Keep verbs out of the base URL&lt;/p&gt;
+
+&lt;p&gt;There should be 2 base URL per resource the first URL is for a collection, the second URL is for a specific element in the collection.&lt;/p&gt;
+
+&lt;p&gt;Use HTTP verbs to operate on the collection and elements&lt;/p&gt;
+
+&lt;p&gt;HTTP verbs are POST, GET, PUT, DELETE&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;RESOURCE&lt;/th&gt;
+      &lt;th&gt;POST&lt;/th&gt;
+      &lt;th&gt;GET&lt;/th&gt;
+      &lt;th&gt;UPDATE&lt;/th&gt;
+      &lt;th&gt;PATCH&lt;/th&gt;
+      &lt;th&gt;DELETE&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/services&lt;/td&gt;
+      &lt;td&gt;create new&lt;/td&gt;
+      &lt;td&gt;get a collection list&lt;/td&gt;
+      &lt;td&gt;bulk, update&lt;/td&gt;
+      &lt;td&gt;return error&lt;/td&gt;
+      &lt;td&gt;delete all&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/services/100&lt;/td&gt;
+      &lt;td&gt;return error&lt;/td&gt;
+      &lt;td&gt;get by Id&lt;/td&gt;
+      &lt;td&gt;if exists then update else return error&lt;/td&gt;
+      &lt;td&gt;if exists then update the fields given else return error&lt;/td&gt;
+      &lt;td&gt;delete by id&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;use-plural-names-and-concrete-names&quot;&gt;&lt;strong&gt;Use plural names and concrete names&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Given that the first thing most people probably do with a RESTful API is a GET, we think it reads more easily and is 
+more intuitive to use plural nouns. But above all, avoid a mixed model in which you use singular for some resources, 
+plural for others. Being consistent allows developers to predict and guess the method calls as they learn to work with 
+your API.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;RESOURCE&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/hotels/&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/hotels/100/rooms&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/hotels/100/rooms/10&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/deals&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;/bookings&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;simplify-associations&quot;&gt;&lt;strong&gt;Simplify associations&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Resources almost always have relationships to other resources. What’s a simple way to express these relationships in a 
+Web API?&lt;/p&gt;
+
+&lt;p&gt;For example given the following operations GET /owners/5678/dogs and POST /owners/5678/dogs the relationships can be 
+complex. Owners have relationships with veterinarians, who have relationships with dogs, who have relationships with 
+food, and so on. It’s not uncommon to see people string these together making a URL 5 or 6 levels deep.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Once you have the primary key for one level, you usually don’t need to include the levels above because you’ve already 
+got your specific object.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;sweep-complexity-behind-the-&quot;&gt;&lt;strong&gt;Sweep complexity behind the ?&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Make it simple for developers to use the base URL by putting optional states and attributes behind the HTTP question mark.&lt;/p&gt;
+
+&lt;p&gt;For example to get all red dogs running in the park: &lt;strong&gt;&lt;em&gt;GET /dogs?color=red&amp;amp;state=running&amp;amp;location=park&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;handling-errors&quot;&gt;&lt;strong&gt;Handling errors&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Error handling it is a very important piece of the puzzle for any software developer, and especially for API designers.&lt;/p&gt;
+
+&lt;h3 id=&quot;use-http-status-codes&quot;&gt;&lt;strong&gt;Use HTTP status codes&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Use HTTP status codes and try to map them cleanly to relevant standard-based codes.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;STATUS CODE&lt;/th&gt;
+      &lt;th&gt;DESCRIPTION&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;200&lt;/td&gt;
+      &lt;td&gt;OK Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request, the response will contain an entity describing or containing the result of the action&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;201&lt;/td&gt;
+      &lt;td&gt;Created The request has been fulfilled, resulting in the creation of a new resource&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;304&lt;/td&gt;
+      &lt;td&gt;Not Modified Indicates that the resource has not been modified since the version specified by the request headers If-Modified-Since or If-None-Match. In such case, there is no need to retransmit the resource since the client still has a previously-downloaded copy.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;400&lt;/td&gt;
+      &lt;td&gt;Bad Request The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, too large size, invalid request message framing, or deceptive request routing)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;401&lt;/td&gt;
+      &lt;td&gt;Unauthorized Similar to 403 Forbidden, but specifically for use when authentication is required and has failed or has not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;403&lt;/td&gt;
+      &lt;td&gt;Forbidden The request was a valid request, but the server is refusing to respond to it. The user might be logged in but does not have the necessary permissions for the resource.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;404&lt;/td&gt;
+      &lt;td&gt;Not Found The requested resource could not be found but may be available in the future. Subsequent requests by the client are permissible&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;500&lt;/td&gt;
+      &lt;td&gt;Internal Server Error A generic error message, given when an unexpected condition was encountered and no more specific message is suitable&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;the-error-message-payload-and-the-header-should-include-the-following-attributes&quot;&gt;&lt;strong&gt;The error message payload and the header should include the following attributes&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;The status code in the response header&lt;/li&gt;
+  &lt;li&gt;The status code in the payload&lt;/li&gt;
+  &lt;li&gt;The developer error message in the payload&lt;/li&gt;
+  &lt;li&gt;The user error message in the payload&lt;/li&gt;
+  &lt;li&gt;The error code in the payload&lt;/li&gt;
+  &lt;li&gt;The link in order to give a more deep information about the error in the payload&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Status&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Code:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;401&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;401&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;developerMessage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;A developer message&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;userMessage&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;A user message&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;errorCode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20003&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;moreInfo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://www.myawesomeapi.com/docs/errors/20003&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;versioning&quot;&gt;&lt;strong&gt;Versioning&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Versioning is one of the most important considerations when designing your Web API.&lt;/p&gt;
+
+&lt;p&gt;Never release an API without a version. Make the version mandatory.&lt;/p&gt;
+
+&lt;p&gt;Specify the version with a ‘v’ (e.g. v1).&lt;/p&gt;
+
+&lt;p&gt;Use a simple ordinal number. Don’t use the dot notation like v1.2 because it implies a granularity of versioning that 
+doesn’t work well with APIs–it’s an interface not an implementation. Stick with v1, v2, and so on.&lt;/p&gt;
+
+&lt;h3 id=&quot;use-the-accept-header&quot;&gt;&lt;strong&gt;Use the Accept Header&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;There is a well-known HTTP header called Accept which is sent on a request from a client to a server. For instance&lt;/p&gt;
+
+&lt;p&gt;Accept: application/json&lt;/p&gt;
+
+&lt;p&gt;This notation is saying that I, the client, would like the response to be in json please.&lt;/p&gt;
+
+&lt;p&gt;The accept headers is using this header to make up your own resource types, for example:&lt;/p&gt;
+
+&lt;p&gt;Accept: application/vnd.myapi.v2 + json&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Using headers is more correct for many reasons: it leverages existing HTTP standards, it’s intellectually consistent 
+with Fielding’s vision, it solves some hard real-world problems related to inter-dependent APIs, and more.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Example&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://company.com/api/customer/123
+===&amp;gt;
+GET /customer/123 HTTP/1.1
+Accept: application/vnd.company.myapp.customer-v3+xml
+ 
+&lt;span class=&quot;err&quot;&gt;&amp;lt;&lt;/span&gt;===
+HTTP/1.1 200 OK
+Content-Type: application/vnd.company.myapp-v3+xml
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;customer&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;Neil Armstrong&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/customer&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;pagination&quot;&gt;&lt;strong&gt;Pagination&lt;/strong&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Make it easy for developers to paginate objects in a database&lt;/li&gt;
+  &lt;li&gt;It’s almost always a bad idea to return every resource in a database.&lt;/li&gt;
+  &lt;li&gt;Use limit and offset. It is more common, well understood in leading databases, and easy for developers. 
+&lt;strong&gt;/dogs?limit=25&amp;amp;offset=50&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;We also suggest including metadata with each response that is paginated that indicated to the developer the total number
+of records available.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;partial-response&quot;&gt;&lt;strong&gt;Partial response&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Partial response allows you to give developers just the information they need.
+Take for example a request for a tweet on the Twitter API. You’ll get much more than a typical twitter app often needs 
+including the name of person, the text of the tweet, a timestamp, how often the message was re-tweeted, and a lot of 
+metadata.&lt;/p&gt;
+
+&lt;p&gt;See google approach https://developers.google.com/+/web/api/rest/&lt;/p&gt;
+
+&lt;p&gt;By default, the server sends back the full representation of a resource after processing requests. For better performance,
+you can ask the server to send only the fields you really need and get a partial response instead.&lt;/p&gt;
+
+&lt;p&gt;To request a partial response, use the fields request parameter to specify the fields you want returned. 
+You can use this parameter with any request that returns a response body.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The following example shows the use of the fields parameter with the Google+ API.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Simple request:&lt;/strong&gt; This HTTP GET request omits the fields parameter and returns the full activity resource, with its 
+dozens of fields.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?key=YOUR-API-KEY&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Request for a partial response:&lt;/strong&gt; This HTTP GET request for the above resource that uses the fields parameter 
+significantly reduces the amount of data returned.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?fields=url,object(content,attachments/url)&amp;amp;key=YOUR-API-KEY&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In response to the above request, the server sends back a JSON response that contains only the url field and the pared-down 
+object that includes only content and attachments.url.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+ &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://plus.google.com/102817283354809142195/posts/F97fqZwJESL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+ &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;object&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;content&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;A picture... of a space ship... launched from earth 40 years ago.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;attachments&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;url&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://apod.nasa.gov/apod/ap110908.html&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+ &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Note that the response is a JSON object that includes only the selected fields and their enclosing parent objects.&lt;/p&gt;
+
+&lt;p&gt;Syntax of the fields parameter is covered next, followed by more detail about what gets returned in the response.&lt;/p&gt;
+
+&lt;h3 id=&quot;fields-parameter-syntax-summary&quot;&gt;&lt;strong&gt;Fields parameter syntax summary&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;The format of the fields request parameter value is loosely based on XPath syntax. The supported syntax is summarized below&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use a comma-separated list to select multiple fields.&lt;/li&gt;
+  &lt;li&gt;Use a/b to select a field b that is nested within field a; use a/b/c to select a field c nested within b.&lt;/li&gt;
+  &lt;li&gt;Specify field sub-selectors to request only specific sub-fields by placing expressions in parentheses “( )” after any 
+selected field. ( For example: fields=items(id,object/content) returns only the item id and object’s content, for each 
+items array element. )&lt;/li&gt;
+  &lt;li&gt;Use wildcards in field selections, if needed. ( For example: fields=items/object/* selects all items in an object. )&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Here are some collection-level examples from activities.list:
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Examples&lt;/th&gt;
+      &lt;th&gt;Effect&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;items&lt;/td&gt;
+      &lt;td&gt;Returns all elements in the items array, including all fields in each element, but no other fields.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;items/title&lt;/td&gt;
+      &lt;td&gt;Returns only the title field for all elements in the items array. Whenever a nested field is returned, the response includes the enclosing parent objects. The parent fields do not include any other child fields unless they are also selected explicitly.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;updated, items&lt;/td&gt;
+      &lt;td&gt;Returns both the updated field and all elements in the items array.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Here are some resource-level examples from activities:
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Examples&lt;/th&gt;
+      &lt;th&gt;Effect&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;title&lt;/td&gt;
+      &lt;td&gt;Returns the title field of the requested resource.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;actor/displayName&lt;/td&gt;
+      &lt;td&gt;Returns the displayName sub-field of the actor object in the requested resource.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;object/attachments/url&lt;/td&gt;
+      &lt;td&gt;Returns only the url field for all members of the attachments array, which is itself nested under the object object.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Field sub-selections: Request only parts of the selected elements.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;By default, if your request specifies particular objects, the server returns the objects in their entirety. You can specify 
+a response that includes only certain sub-fields within the selected objects. You do this using “( )” sub-selection syntax, 
+as in the example below:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Example&lt;/th&gt;
+      &lt;th&gt;Effect&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;items(id,url)&lt;/td&gt;
+      &lt;td&gt;Returns only the values of the id and url fields for each element in the items array.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;handling-partial-responses&quot;&gt;&lt;strong&gt;Handling partial responses&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;responses-that-dont-involve-resources&quot;&gt;&lt;strong&gt;Responses that don’t involve resources&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;use-verbs-not-nouns&quot;&gt;&lt;strong&gt;Use verbs not nouns&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;supporting-multiple-formats&quot;&gt;&lt;strong&gt;Supporting multiple formats&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;attribute-names&quot;&gt;&lt;strong&gt;Attribute names&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;tips-for-search&quot;&gt;&lt;strong&gt;Tips for search&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;&lt;strong&gt;Resources&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;</content><summary>Summary
+The objective of this reference document is to define the best practices and frameworks for developing APIs.</summary></entry><entry><title>Logging Best Practices for Java</title><link href="http://cjrequena.github.io/logging/2017/01/23/logging-best-practices-en.html" rel="alternate" type="text/html" title="Logging Best Practices for Java" /><published>2017-01-23T07:39:00+01:00</published><updated>2017-01-23T07:39:00+01:00</updated><id>http://cjrequena.github.io/logging/2017/01/23/logging-best-practices-en</id><content type="html" xml:base="http://cjrequena.github.io/logging/2017/01/23/logging-best-practices-en.html">&lt;h2 id=&quot;summary&quot;&gt;&lt;strong&gt;Summary&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;This reference document shows the logging best practice for java&lt;/p&gt;
+
+&lt;h2 id=&quot;description&quot;&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Logging subsystem provides facilities for capturing, recording and reporting events which occur within the OpenDaylight system. These events are the primary means of system diagnostics and troubleshooting, serving a wide audience including automated monitoring systems, operators, administrators, support personnel and development engineers.&lt;/p&gt;
+
+&lt;p&gt;In order to provide a ‘single system’ experience, all software components should follow same basic rules for interfacing with the logging system. While it is not practical to force these rules on the various third parties, they should to be followed by all newly-developed components.&lt;/p&gt;
+
+&lt;h2 id=&quot;contents&quot;&gt;&lt;strong&gt;Contents&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#why-we-need-logging-in-java&quot;&gt;Why we need logging in Java?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#how-logging-in-java-affects-performance&quot;&gt;How logging in Java affects performance?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#message-levels&quot;&gt;Message levels&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#logger-instances&quot;&gt;Logger instances&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#use-parameterized-logging&quot;&gt;Use parameterized logging&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#provide-useful-event-context&quot;&gt;Provide useful event context&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-should-you-log&quot;&gt;What should you log?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tune-your-pattern&quot;&gt;Tune your pattern&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#log-method-arguments-and-return-values&quot;&gt;Log method arguments and return values&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;why-we-need-logging-in-java&quot;&gt;&lt;strong&gt;Why we need logging in Java?&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;how-logging-in-java-affects-performance&quot;&gt;&lt;strong&gt;How logging in Java affects performance?&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;message-levels&quot;&gt;&lt;strong&gt;Message levels&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;logger-instances&quot;&gt;&lt;strong&gt;Logger instances&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;use-parameterized-logging&quot;&gt;&lt;strong&gt;Use parameterized logging&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;provide-useful-event-context&quot;&gt;&lt;strong&gt;Provide useful event context&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-should-you-log&quot;&gt;&lt;strong&gt;What should you log?&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;tune-your-pattern&quot;&gt;&lt;strong&gt;Tune your pattern&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;log-method-arguments-and-return-values&quot;&gt;&lt;strong&gt;Log method arguments and return values&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;watch-out-for-external-systems&quot;&gt;&lt;strong&gt;Watch out for external systems&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;log-exceptions-properly&quot;&gt;&lt;strong&gt;Log exceptions properly&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;logs-easy-to-read-easy-to-parse&quot;&gt;&lt;strong&gt;Logs easy to read, easy to parse&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;#contents&quot;&gt;Go to Contents Table&lt;/a&gt;&lt;/p&gt;</content><summary>Summary
+This reference document shows the logging best practice for java</summary></entry><entry><title>Arquitectura Orientada a Microservicios</title><link href="http://cjrequena.github.io/micro-services/2016/09/20/micro-services-architecture-es.html" rel="alternate" type="text/html" title="Arquitectura Orientada a Microservicios" /><published>2016-09-20T08:39:00+02:00</published><updated>2016-09-20T08:39:00+02:00</updated><id>http://cjrequena.github.io/micro-services/2016/09/20/micro-services-architecture-es</id><content type="html" xml:base="http://cjrequena.github.io/micro-services/2016/09/20/micro-services-architecture-es.html">&lt;p&gt;La arquitectura orientada a microservicios, es un método particular de
 desarrollar sistemas de software que ha crecido en popularidad en los últimos años.&lt;/p&gt;
 
 &lt;p&gt;En esencia, la arquitectura orientada a microservicios es un método de
@@ -138,4 +617,17 @@ ser escrito en Java, mientras que otro se podría escribir en node.js.&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;https://smartbear.com/learn/api-design/what-are-microservices/&quot;&gt;smartbear&lt;/a&gt; - What is Microservices Architecture?&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://jumpintothecloud.net/5-benefits-of-migrating-to-a-microservice-architecture/&quot;&gt;jumpintothecloud&lt;/a&gt; - 5 Benefits of Migrating to a Microservice Architecture&lt;/li&gt;
 &lt;/ul&gt;</content><summary>La arquitectura orientada a microservicios, es un método particular de
-desarrollar sistemas de software que ha crecido en popularidad en los últimos años.</summary></entry><entry><title>Test</title><link href="http://cjrequena.github.io/test-category/2016/07/09/test-en.html" rel="alternate" type="text/html" title="Test" /><published>2016-07-09T20:00:00+02:00</published><updated>2016-07-09T20:00:00+02:00</updated><id>http://cjrequena.github.io/test-category/2016/07/09/test-en</id><content type="html" xml:base="http://cjrequena.github.io/test-category/2016/07/09/test-en.html"></content><summary></summary></entry><entry><title>Test</title><link href="http://cjrequena.github.io/test-category/2016/07/09/test-es.html" rel="alternate" type="text/html" title="Test" /><published>2016-07-09T19:00:00+02:00</published><updated>2016-07-09T19:00:00+02:00</updated><id>http://cjrequena.github.io/test-category/2016/07/09/test-es</id><content type="html" xml:base="http://cjrequena.github.io/test-category/2016/07/09/test-es.html"></content><summary></summary></entry></feed>
+desarrollar sistemas de software que ha crecido en popularidad en los últimos años.</summary></entry><entry><title>Test</title><link href="http://cjrequena.github.io/test-category/2016/07/09/test-en.html" rel="alternate" type="text/html" title="Test" /><published>2016-07-09T20:00:00+02:00</published><updated>2016-07-09T20:00:00+02:00</updated><id>http://cjrequena.github.io/test-category/2016/07/09/test-en</id><content type="html" xml:base="http://cjrequena.github.io/test-category/2016/07/09/test-en.html"></content><summary></summary></entry><entry><title>Test Es</title><link href="http://cjrequena.github.io/2016/07/09/test-es.html" rel="alternate" type="text/html" title="Test Es" /><published>2016-07-09T00:00:00+02:00</published><updated>2016-07-09T00:00:00+02:00</updated><id>http://cjrequena.github.io/2016/07/09/test-es</id><content type="html" xml:base="http://cjrequena.github.io/2016/07/09/test-es.html">&lt;hr /&gt;
+&lt;p&gt;layout: post
+title:  “Test”
+date:   2016-07-09 17:00:00 +0000
+categories: test-category
+lang: es
+ref: test
+–&lt;/p&gt;</content><summary>layout: post
+title:  “Test”
+date:   2016-07-09 17:00:00 +0000
+categories: test-category
+lang: es
+ref: test
+–</summary></entry></feed>
