@@ -7,13 +7,13 @@ lang: en
 ref: api-design-best-practices
 ---
 
-## **Summary**
-The objective of this reference document is to define the best practices and frameworks for developing APIs.
+## _**Summary**_
+_**The objective**_ of this reference document is to define the best practices and frameworks for developing APIs.
 
 This is a development guide that contains rules and standards to follow in the building of APIs following the best 
 practices of design and continuous improvement.
 
-## **Overview**
+## _**Overview**_
 The API’s job is to make the developer as successful as possible.
 
 The orientation for APIs is to think about design choices from the application developer’s point of view.
@@ -25,18 +25,22 @@ for the app developer?
 
 The developer point of view is the guiding principle for all the specific tips and best practices we’ve compiled.
 
-## **Contents**
+## _**Contents**_
 1. [Use nouns in order to name a resource](#use-nouns-in-order-to-name-a-resource)
-1. [Use plural names and concrete names](#use-plural-names-and-concrete-names)
-1. [Simplify associations](#simplify-associations)
-1. [Sweep complexity behind the ?](#sweep-complexity-behind-the-?)
-1. [Handling errors](#use-parameterized-logging)
-1. [Versioning](#provide-useful-event-context)
-1. [Pagination](#what-should-you-log)
-1. [Partial response](#tune-your-pattern)
-1. [Fields parameter syntax summary ](#log-method-arguments-and-return-values)
+2. [Use plural names and concrete names](#use-plural-names-and-concrete-names)
+3. [Simplify associations](#simplify-associations)
+4. [Sweep complexity behind the ?](#sweep-complexity-behind-the-?)
+5. [Handling errors](#handling-errors)
+6. [Versioning](#versioning)
+7. [Pagination](#pagination)
+8. [Partial response](#partial-response)
+9. [Fields parameter syntax summary ](#fields-parameter-syntax-summary)
+10. [Supporting multiple formats](#supporting-multiple-formats)
+11. [Attribute names](#attribute-names)
+12. [Tips for search](#tips-for-search)
+13. [Resources](#resources)
 
-## **Use nouns in order to name a resource**
+## _**Use nouns in order to name a resource**_
 The number one principle in pragmatic RESTful design is: keep simple things simple.
 
 Keep the base URL simple and intuitive the base URL is the most important design affordance of your API. A simple and intuitive base URL design makes using your API easy.
@@ -55,7 +59,7 @@ HTTP verbs are POST, GET, PUT, DELETE
 | /services/100 | return error | get by Id             | if exists then update else return error | if exists then update the fields given else return error | delete by id |
 
 
-## **Use plural names and concrete names**
+## _**Use plural names and concrete names**_
 Given that the first thing most people probably do with a RESTful API is a GET, we think it reads more easily and is 
 more intuitive to use plural nouns. But above all, avoid a mixed model in which you use singular for some resources, 
 plural for others. Being consistent allows developers to predict and guess the method calls as they learn to work with 
@@ -70,7 +74,7 @@ your API.
 | /bookings            |
 
 
-## **Simplify associations**
+## _**Simplify associations**_
 Resources almost always have relationships to other resources. What's a simple way to express these relationships in a 
 Web API?
 
@@ -81,16 +85,16 @@ food, and so on. It's not uncommon to see people string these together making a 
 **_Once you have the primary key for one level, you usually don't need to include the levels above because you've already 
 got your specific object._**
 
-## **Sweep complexity behind the ?**
+## _**Sweep complexity behind the ?**_
 
 Make it simple for developers to use the base URL by putting optional states and attributes behind the HTTP question mark.
 
 For example to get all red dogs running in the park: **_GET /dogs?color=red&state=running&location=park_**
 
-## **Handling errors**
+## _**Handling errors**_
 Error handling it is a very important piece of the puzzle for any software developer, and especially for API designers.
 
-### **Use HTTP status codes**
+### _**Use HTTP status codes**_
 Use HTTP status codes and try to map them cleanly to relevant standard-based codes.
 
 | STATUS CODE | DESCRIPTION                                                                                                                                                                                                                                                                                                            |
@@ -104,7 +108,7 @@ Use HTTP status codes and try to map them cleanly to relevant standard-based cod
 | 404         | Not Found The requested resource could not be found but may be available in the future. Subsequent requests by the client are permissible                                                                                                                                                                              |
 | 500         | Internal Server Error A generic error message, given when an unexpected condition was encountered and no more specific message is suitable                                                                                                                                                                             |
 
-### **The error message payload and the header should include the following attributes**
+### _**The error message payload and the header should include the following attributes**_
 * The status code in the response header
 * The status code in the payload
 * The developer error message in the payload
@@ -123,7 +127,7 @@ HTTP Status Code: 401
 }
 ```
 
-## **Versioning**
+## _**Versioning**_
 Versioning is one of the most important considerations when designing your Web API.
 
 Never release an API without a version. Make the version mandatory.
@@ -133,7 +137,7 @@ Specify the version with a ‘v’ (e.g. v1).
 Use a simple ordinal number. Don’t use the dot notation like v1.2 because it implies a granularity of versioning that 
 doesn’t work well with APIs--it’s an interface not an implementation. Stick with v1, v2, and so on.
 
-### **Use the Accept Header**
+### _**Use the Accept Header**_
 There is a well-known HTTP header called Accept which is sent on a request from a client to a server. For instance
 
 Accept: application/json
@@ -161,7 +165,7 @@ Content-Type: application/vnd.company.myapp-v3+xml
 </customer>
 ```
 
-## **Pagination**
+## _**Pagination**_
 * Make it easy for developers to paginate objects in a database
 * It’s almost always a bad idea to return every resource in a database.
 * Use limit and offset. It is more common, well understood in leading databases, and easy for developers. 
@@ -169,7 +173,7 @@ Content-Type: application/vnd.company.myapp-v3+xml
 * We also suggest including metadata with each response that is paginated that indicated to the developer the total number
 of records available.
 
-## **Partial response**
+## _**Partial response**_
 Partial response allows you to give developers just the information they need.
 Take for example a request for a tweet on the Twitter API. You’ll get much more than a typical twitter app often needs 
 including the name of person, the text of the tweet, a timestamp, how often the message was re-tweeted, and a lot of 
@@ -185,15 +189,15 @@ You can use this parameter with any request that returns a response body.
 
 The following example shows the use of the fields parameter with the Google+ API.
 
-**Simple request:** This HTTP GET request omits the fields parameter and returns the full activity resource, with its 
+_**Simple request:**_ This HTTP GET request omits the fields parameter and returns the full activity resource, with its 
 dozens of fields.
 
-**https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?key=YOUR-API-KEY**
+_**https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?key=YOUR-API-KEY**_
 
-**Request for a partial response:** This HTTP GET request for the above resource that uses the fields parameter 
+_**Request for a partial response:**_ This HTTP GET request for the above resource that uses the fields parameter 
 significantly reduces the amount of data returned.
 
-**https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?fields=url,object(content,attachments/url)&key=YOUR-API-KEY**
+_**https://www.googleapis.com/plus/v1/activities/z12gtjhq3qn2xxl2o224exwiqruvtda0i?fields=url,object(content,attachments/url)&key=YOUR-API-KEY**_
 
 In response to the above request, the server sends back a JSON response that contains only the url field and the pared-down 
 object that includes only content and attachments.url.
@@ -215,7 +219,7 @@ Note that the response is a JSON object that includes only the selected fields a
 
 Syntax of the fields parameter is covered next, followed by more detail about what gets returned in the response.
 
-### **Fields parameter syntax summary**
+### _**Fields parameter syntax summary**_
 The format of the fields request parameter value is loosely based on XPath syntax. The supported syntax is summarized below
 
 * Use a comma-separated list to select multiple fields.
@@ -258,7 +262,7 @@ as in the example below:
 |---------------|---------------------------------------------------------------------------------------|
 | items(id,url) | Returns only the values of the id and url fields for each element in the items array. |
 
-### **Handling partial responses**
+### _**Handling partial responses**_
 
 After a server processes a valid request that includes the fields query parameter, it sends back an HTTP 200 OK status 
 code, along with the requested data. If the fields query parameter has an error or is otherwise invalid, the server 
@@ -267,7 +271,7 @@ fields selection, for example, "Invalid field selection a/b".
 
 **_Note: Whenever possible, use maxResults judiciously to reduce the results of each query to a manageable size. Otherwise, the performance gains possible with partial response might not be realized._**
 
-## **Responses that don’t involve resources**
+## _**Responses that don’t involve resources**_
 
 API calls that send a response that’s not a resource per se are not uncommon depending on the domain. We’ve seen it in 
 financial services, Telco, and the automotive domain to some extent.
@@ -280,7 +284,7 @@ Actions like the following are your clue that you might not be dealing with a �
 
 For example, you want to make a simple algorithmic calculation like how much tax someone should pay, or do a natural language translation (one language in request; another in response), or convert one currency to another. None involve resources returned from a database.
 
-### **Use verbs not nouns**
+### _**Use verbs not nouns**_
 
 For example, an API to convert 100 euros to Chinese Yen: **_/convert?from=EUR&to=CNY&amount=100_**
 
@@ -289,7 +293,7 @@ Make it clear in your API documentation that these “non-resource” scenarios 
 Simply separate out a section of documentation that makes it clear that you use verbs in cases like this – where some 
 action is taken to generate or calculate the response, rather than returning a resource directly.
 
-## **Supporting multiple formats**
+## _**Supporting multiple formats**_
 
 We recommend that you support more than one format - that you push things out in one format and accept as many formats 
 as necessary.
@@ -306,7 +310,7 @@ Accept: application/vnd.company.myapp.customer-v3+xml
 end is built in Ruby on Rails, PHP, Java, Python etc., most projects probably touch JavaScript for the front-end. 
 It also has the advantage of being terse - less verbose than XML._**
 
-## **Attribute names**
+## _**Attribute names**_
 
 You have an object with data attributes on it. How should you name the attributes?
 
@@ -324,7 +328,7 @@ serviceId: 100
 * Follow JavaScript conventions for naming attributes
 * Use medial capitalization (aka CamelCase)
 
-## **Tips for search**
+## _**Tips for search**_
 
 While a simple search could be modeled as a resourceful API (for example, dogs/?q=red), a more complex search across 
 multiple resources requires a different design.
@@ -334,11 +338,11 @@ the database - rather the result is some action or calculation.
 
 If you want to do a global search across resources, we suggest you follow the Google model:
 
-**Global search**
+_**Global search**_
 
 **_/search?q=fluffy+fur_**
 
-## **Resources**
+## _**Resources**_
 
 * [Apigee Web Api Design](https://apigee.com/about/resources/ebooks/web-api-design)
 * [REST API Design Rulebook](http://shop.oreilly.com/product/0636920021575.do)
