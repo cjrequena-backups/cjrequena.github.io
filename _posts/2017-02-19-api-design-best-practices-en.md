@@ -2,7 +2,7 @@
 layout: post
 title: "API Design Best Practices"
 date: 2017-02-19 06:39:00 +6390
-categories: api
+categories: API, API Design Best Practices
 lang: en
 ref: api-design-best-practices
 ---
