@@ -121,10 +121,10 @@ Use HTTP status codes and try to map them cleanly to relevant standard-based cod
 HTTP Status Code: 401
 {
     "status" : "401", 
-    "developerMessage":"A developer message",
-    "userMessage":"A user message",
-    "errorCode": 20003, 
-    "moreInfo": "http://www.myawesomeapi.com/docs/errors/20003"
+    "developer_message":"A developer message",
+    "user_message":"A user message",
+    "error_code": 20003,
+    "more_info": "http://www.myawesomeapi.com/docs/errors/20003"
 }
 ```
 
@@ -247,7 +247,7 @@ items array element. )
 | Examples               | Effect                                                                                                               |
 |------------------------|----------------------------------------------------------------------------------------------------------------------|
 | title                  | Returns the title field of the requested resource.                                                                   |
-| actor/displayName      | Returns the displayName sub-field of the actor object in the requested resource.                                     |
+| actor/display_name      | Returns the displayName sub-field of the actor object in the requested resource.                                     |
 | object/attachments/url | Returns only the url field for all members of the attachments array, which is itself nested under the object object. |
 
 
@@ -311,23 +311,44 @@ Accept: application/vnd.company.myapp.customer-v3+xml
 end is built in Ruby on Rails, PHP, Java, Python etc., most projects probably touch JavaScript for the front-end. 
 It also has the advantage of being terse - less verbose than XML._**
 
-## _**Attribute names**_
-
-You have an object with data attributes on it. How should you name the attributes?
-
-Our approach is going to be CamelCase attributes
-
-**_For example:_**
-
-createdAt: 1320296464
-
-serviceId: 100
-
 **_Recommendations_**
 
 * Use JSON as default
-* Follow JavaScript conventions for naming attributes
-* Use medial capitalization (aka CamelCase)
+* Use Consistent Property Names
+* Property names must be snake_case (and never camelCase).
+  No established industry standard exists, but many popular Internet companies prefer snake_case: e.g. GitHub, Stack Exchange, Twitter. Others, like Google and Amazon, use both - but not only camelCase.
+  It’s essential to establish a consistent look and feel such that JSON looks as if it came from the same hand.
+* Use Consistent Property Values
+* Boolean property values must not be null
+* Date property values must conform to RFC 3399
+* Reserved JavaScript keywords should be avoided
+* Array names should be pluralized
+* Null values should not have their fields removed
+* Empty array values should not be null
+* Enumerations should be represented as Strings
+* Must Use nouns in order to name a resource
+* Pluralize Resource Names
+* Use Conventional Query Strings Naming. If you provide query support for sorting, pagination, filtering functions or other actions, usethe following standardized naming conventions
+* Use lowercase separate words with hyphens for Path Segments
+  Example: /purchase-orders/100
+* Use snake_case (never camelCase) for Query Parameters
+  Examples: /purchase-orders/100?customer_number_id=50&order_id=2&billing_address_id=10
+* Use Hyphenated HTTP Headers
+* Avoid Trailing Slashes
+  The trailing slash must not have specific semantics. Resource paths must deliver the same results whether they have the trailing slash or not.
+* Keep URLs Verb-Free
+  The API describes resources, so the only place where actions should appear is in the HTTP methods. In URLs, use only nouns.
+* Identify resources and Sub-Resources via Path Segments
+  Basic URL structure:
+  /{resources}/[resource_id]/{sub-resources}/[sub_resource_id]
+  Examples:
+  /orders/1681e6b88ec1/items
+  /orders/1681e6b88ec1/items/1
+* Simplify associations
+* Define useful resources
+* Limit number of Resources
+* Limit number of Sub-Resource Levels
+* Use HTTP status codes
 
 ## _**Tips for search**_
 
